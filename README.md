@@ -21,11 +21,11 @@ I wanted a quick way to build the latest Proxmark3 code on any new Linux system 
 
 ## Howto
 ### First time
-If you just run the following command it will download and build Proxmark3 according to the default parameters (see ./.config).
+If you just run the following command it will download and build Proxmark3 according to the default parameters as set in _./.config_.
 
     ./makepm3
 
 ### Change configuration
-Just run the following command to set new build defaults.
+Just run the following command to set new build defaults. It is possible to save/load your configuration to/from a different file.
 
     make menuconfig
