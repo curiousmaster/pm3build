@@ -7,7 +7,9 @@ Proxmark3 Build environment based on menuconfig.
 3) To build Proxmark3 according to your settings: ./makepm3
 
 ## Description
-This is a build wrapper for RRG's Proxmark3 repository (https://github.com/RfidResearchGroup/proxmark3). The default settings are:
+This is a build wrapper for RRG's Proxmark3 repository (https://github.com/RfidResearchGroup/proxmark3).
+
+## The default settings
 * Platform: RDV4
 * Standalone module: HF_YOUNG
 * Download/update Proxmark3 git repository
