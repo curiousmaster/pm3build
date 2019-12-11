@@ -19,6 +19,12 @@ This is a build wrapper for RRG's Proxmark3 repository (https://github.com/RfidR
 
 ## Howto
 ### First time
-If you just run ./makepm3 it will download and build Proxmark3 according to the default parameters.
+If you just run **./makepm3** it will download and build Proxmark3 according to the default parameters.
+
+    ./makepm3
+
+
 ### Change configuration
-Just run '''make menuconfig''' to set new build defaults.
+Just run **make menuconfig** to set new build defaults.
+
+    make menuconfig
