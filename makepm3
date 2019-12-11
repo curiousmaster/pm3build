@@ -155,7 +155,7 @@ make clean PLATFORM=${PLATFORM} STANDALONE=${STANDALONE}
 fi
 
 #======================================================================
-if [ "${CONFIG_BUILD}" = "y" } ; then
+if [ "${CONFIG_BUILD}" = "y" ] ; then
 tBOLD
 cat <<_EOM_
 
@@ -168,7 +168,7 @@ make -j${CONFIG_THREADS} all PLATFORM=${PLATFORM} STANDALONE=${STANDALONE}
 fi
 
 #======================================================================
-if [ "${CONFIG_INSTALL}" = "y" ]; then
+if [ "${CONFIG_INSTALL}" = "y" ] ; then
 tBOLD
 cat <<_EOM_
 
