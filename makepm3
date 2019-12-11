@@ -1,0 +1,193 @@
+#! /usr/bin/env sh
+#======================================================================
+# NAME
+#   makeit4 - Build Proxmark3 RDV4 images and binaries
+#
+# DESCRIPTION
+#   This script will build the latest Proxmark3 RDV4
+#
+# AUTHOR
+#   Nov 22, 2019 / Stefan Benediktsson
+#
+#======================================================================
+#--------------------------------------------------
+# Initiate variables
+#--------------------------------------------------
+#------------------------------
+# Build vars
+#------------------------------
+
+if [ ! -f .config ] ; then
+    make menuconfig
+fi
+
+export $( cat .config | egrep "^CONFIG" | xargs )
+
+
+[ "$CONFIG_PM3RDV4" = "y" ] && PLATFORM=PM3RDV4
+[ "$CONFIG_PM3OTHER" = "y" ] && PLATFORM=PM3OTHER
+
+[ "$CONFIG_BTADDON" = "y" ] && PLATFORM_EXTRAS=BTADDON
+
+[ "$CONFIG_LF_SAMYRUN" = "y" ] && STANDALONE=LF_SAMYRUN
+[ "$CONFIG_LF_ICERUN" = "y" ] && STANDALONE=LF_ICERUN
+[ "$CONFIG_LF_PROXBRUTE" = "y" ] && STANDALONE=LF_PROXBRUTE
+[ "$CONFIG_LF_HIDBRUTE" = "y" ] && STANDALONE=LF_HIDBRUTE
+[ "$CONFIG_HF_YOUNG" = "y"] && STANDALONE=HF_YOUNG
+[ "$CONFIG_HF_MATTYRUN" = "y" && STANDALONE=HF_MATTYRUN
+[ "$CONFIG_HF_COLIN" = "y" ] && STANDALONE=HF_COLIN
+[ "$CONFIG_HF_BOG" = "y" ] && STANDALONE=HF_BOG
+
+
+
+#PLATFORM=PM3RDV4
+#STANDALONE=HF_YOUNG
+
+#------------------------------
+# System vars
+#------------------------------
+FWDIR="/usr/local/share/proxmark3/firmware"
+BOOTROM=bootrom
+FULLIMG=fullimage
+
+tBOLD()
+{
+    echo "\e[41m"
+}
+tRESET()
+{
+    echo "\e[0m"
+}
+
+#--------------------------------------------------
+# Install prereqs
+#--------------------------------------------------
+
+if [ "${CONFIG_GETDEPENDENCIES}" = "y" ] ; then
+tBOLD
+cat <<_EOM_
+==================================================
+            Installing prerequisits
+==================================================
+_EOM_
+tRESET
+(
+sudo apt update
+sudo apt install git build-essential libreadline5 libreadline-dev gcc-arm-none-eabi libusb-0.1-4 libusb-dev libqt4-dev ncurses-dev perl pkg-config libpcsclite-dev pcscd
+)
+echo "DONE"
+
+#--------------------------------------------------
+# Check that ModemManager is not installed
+#--------------------------------------------------
+if [ -n "`dpkg -l modemmanager | egrep '^ii'`" ] ; then
+    tBOLD
+    cat <<_EOM_
+==================================================
+            Uninstall ModemManager
+==================================================
+_EOM_
+    tRESET
+    sudo apt purge modemmanager >/dev/null 2>&1
+fi
+fi
+
+#--------------------------------------------------
+# Show header
+#--------------------------------------------------
+tBOLD
+cat <<_EOM_
+==================================================
+               Building Proxmark3
+--------------------------------------------------
+  Platform  : ${PLATFORM}
+  Standalone: ${STANDALONE}
+==================================================
+_EOM_
+tRESET
+
+#--------------------------------------------------
+# Check if we have a Proxmark3 repo downloaded
+#--------------------------------------------------
+
+if [ ! -d proxmark3 ] ; then
+    if [ "${CONFIG_GITDOWNLOAD}" = "y" ] ; then
+        git clone https://github.com/RfidResearchGroup/proxmark3.git proxmark3
+    fi
+else
+    echo "No Proxmark3 code downloaded... exiting"
+    exit 0
+fi
+
+cd proxmark3
+
+#--------------------------------------------------
+# Check if remote GIT update available
+#--------------------------------------------------
+if [ "${CONFIG_GITDOWNLOAD}" = "y" ] ; then
+    git fetch -v --dry-run 2>&1 | grep master | grep "up to date" >/dev/null 2>&1
+if [ $? -eq 1 ] ; then
+    echo -n "Git update available... should I download? [Y|n]: "
+
+    read answer
+    case ${answer} in
+        n|N)    doupdate="0" ;;
+        *)      doupdate="1" ;;
+    esac
+
+    if [ "${doupdate}" -eq 1 ] ; then
+        git pull
+    fi
+fi
+fi
+
+#======================================================================
+if [ "${CONFIG_BUILDCLEAN}" = "y" ] ; then
+tBOLD
+cat <<_EOM_
+
+==================================================
+                 Cleaning up
+--------------------------------------------------
+_EOM_
+tRESET
+make clean PLATFORM=${PLATFORM} STANDALONE=${STANDALONE}
+fi
+
+#======================================================================
+if [ "${CONFIG_BUILD}" = "y" } ; then
+tBOLD
+cat <<_EOM_
+
+==================================================
+                Building code
+--------------------------------------------------
+_EOM_
+tRESET
+make -j${CONFIG_THREADS} all PLATFORM=${PLATFORM} STANDALONE=${STANDALONE}
+fi
+
+#======================================================================
+if [ "${CONFIG_INSTALL}" = "y" ]; then
+tBOLD
+cat <<_EOM_
+
+==================================================
+               Installing image
+--------------------------------------------------
+_EOM_
+tRESET
+sudo make install PLATFORM=${PLATFORM} STANDALONE=${STANDALONE}
+
+#======================================================================
+tBOLD
+cat <<_EOM_
+
+==================================================
+               Installing image
+--------------------------------------------------
+_EOM_
+tRESET
+sudo cp ${FWDIR}/${BOOTROM}.elf ${FWDIR}/${BOOTROM}_${PLATFORM}_${STANDALONE}.elf
+sudo cp ${FWDIR}/${FULLIMG}.elf ${FWDIR}/${FULLIMG}_${PLATFORM}_${STANDALONE}.elf
+fi

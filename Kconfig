@@ -1,0 +1,208 @@
+#
+# For a description of the syntax of this configuration file,
+# see Documentation/kbuild/kconfig-language.txt.
+#
+mainmenu "MYAPP Configuration"
+
+#config SRCARCH
+#	string
+#	option env="SRCARCH"
+
+#source "arch/$SRCARCH/Kconfig"
+
+
+#menu "Compile-time checks and compiler options"
+
+choice
+	prompt ""
+	default PM3RDV4
+
+config PM3RDV4
+	bool "Proxmark3 RDV4"
+	help
+	  This is the latest platform.
+
+config PM3OTHER
+	bool "Proxmark3 all other platforms"
+	help
+	  This is for all other Proxmark3 platforms
+endchoice
+
+config BTADDON
+	bool "BlueShark addon"
+    depends on PM3RDV4
+	help
+        BlueShark is bringing the following functionality to your existing Proxmark 3:
+
+        - Standalone Mode
+        - Offline sniffing
+        - Offline reading & simulation
+
+        Built with penetration testers in mind, this upgrade consists of:
+
+        - Bluetooth 2.0 EDR module
+        - Rechargeable polymer lithium-ion Battery module
+        - Aluminium case + heatsink
+        - Tempered glass cover
+
+choice
+    prompt ""
+    default HF_YOUNG
+
+config LF_SAMYRUN
+    bool "LF_SAMYRUN - HID26 read/clone/sim"
+    help
+        READ/SIM of LF HID26 tags.
+
+        Author: Samy Kamkar
+
+config LF_ICERUN
+    bool "LF_ICERUN - standalone mode skeleton"
+    help
+        - Long press button until Several LED flash in sequence
+        - LED C is now lit
+        - Long press button until LED D lights as well as C
+        - Place card on antenna to be read
+        - D goes off when card is read
+        - Short press button
+        - B and C is lit
+        - Card is now being Emulated
+
+        Author: Iceman
+
+config LF_PROXBRUTE
+    bool "LF_PROXBRUTE - HID ProxII bruteforce"
+    help
+        - Hold button until lights flash and release.
+        - C stays lit.
+        - Short press button: C&B are lit
+        - Short press button: only A is lit
+        - Hold button until A&D light up
+        - Scan a valid card
+        - Short press button: B&C&A stay lit
+        - It is now brute forcing the key space starting with the scanned card and decrements the hex values until you find a new valid card
+
+        Author: Brad Antoniewicz
+
+config LF_HIDBRUTE
+    bool "LF_HIDBRUTE - HID corporate 1000 bruteforce"
+    help
+        - Hold button until lights flash and release.
+        - C stays lit.
+        - Short press button until: A&C are lit
+        - Hold button until A&C&D are lit
+        - Scan a valid card
+        - Short press button: B&C&A stay lit
+        - It is now brute forcing the key space starting with the scanned card and decrements card numbers
+        - Short press the button again to increment card numbers
+
+        Author: Federico dotta & Maurizio Agazzini
+
+config HF_YOUNG
+    bool "HF_YOUNG - Mifare sniff/simulation"
+    help
+        Author: Craig Young
+
+config HF_MATTYRUN
+    bool "HF_MATTYRUN - Mifare sniff/clone"
+    help
+        - Hold card up to antenna.
+        - Long press button.
+        - A&D light and B flashes if card is held to antenna.
+        - Wait for A&D to go off and B will stay lit.
+        - Mifare card is now being emulated.
+        - Press button again to clone the card to a Chinese magic card.
+
+        Note: If C stays lit then the keys were not found and tag can not be emulated.
+        Try holding tag over antenna before pressing the button and try again.
+
+        Author: Matias A. Re Medina
+
+config HF_COLIN
+    depends on PM3RDV4
+    bool "HF_COLIN - Mifare ultra fast sniff/sim/clone"
+    help
+        Author: Colin Brigato
+
+config HF_BOG
+    depends on PM3RDV4
+    bool "HF_BOG - 14a sniff with ULC/ULEV1/NTAG auth storing in flashmem"
+    help
+        Author: Bogito
+
+
+endchoice
+
+menu "Build environment"
+
+    config THREADS
+        int "Number of build threads (2-8)"
+        range 2 8
+        default 2
+        help
+            Number of build threads to use (make -j #)
+
+            Range: 2 - 8
+
+    config GETDEPENDENCIES
+        bool "Get Build dependencies?"
+        default n
+        help
+            Make sure all build dependencies are met:
+             - p7zip
+             - git
+             - build-essential
+             - libreadline5
+             - libreadline-dev
+             - libusb-0.1-4
+             - libusb-dev
+             - libqt4-dev
+             - perl
+             - pkg-config
+             - wget
+             - libncurses5-dev
+             - gcc-arm-none-eabi
+             - libstdc++-arm-none-eabi-newlib
+             - libpcsclite-dev pcscd
+
+    config GITDOWNLOAD
+        bool "Download/update Proxmark3 repository?"
+        help
+            Download latest Proxmark3 code from repository.
+
+            Repository: https://github.com/RfidResearchGroup/proxmark3.git
+        default y
+
+    config BUILD
+        bool "Build code"
+        default y
+
+
+    choice
+        prompt "Build code?"
+        depends on BUILD
+        default y
+
+        config BUILDCLEAN
+            bool "Make clean build"
+
+        config BUILDCODE
+            bool "Just Make"
+
+    endchoice
+
+    config INSTALL
+        bool "Install image"
+        default "y"
+
+endmenu
+
+
+#source "main/Kconfig"
+
+#source "lib/Kconfig"
+
+
+
+
+
