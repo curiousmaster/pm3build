@@ -110,12 +110,14 @@ tRESET
 # Check if we have a Proxmark3 repo downloaded
 #--------------------------------------------------
 
-if [ ! -d proxmark3 ] ; then
+if [ ! -d "proxmark3" ] ; then
     if [ "${CONFIG_GITDOWNLOAD}" = "y" ] ; then
         git clone https://github.com/RfidResearchGroup/proxmark3.git proxmark3
     fi
-else
-    echo "No Proxmark3 code downloaded... exiting"
+fi
+
+if [ ! -d "proxmark3" ] ; then
+    echo "No proxmark3 downloaded... exiting!"
     exit 0
 fi
 
