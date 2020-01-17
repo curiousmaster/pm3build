@@ -39,6 +39,7 @@ x
 #
 #
 /proxmark3
+/workspace/*
 #
 # Top-level generic files
 #

@@ -14,6 +14,23 @@ mainmenu "MYAPP Configuration"
 #menu "Compile-time checks and compiler options"
 
 choice
+    prompt ""
+    default RfidResearchGroup
+
+config RfidResearchGroup
+    bool "Rfid Research Group"
+    help
+      Official Repository
+
+config TestRepo
+    bool "TestRepoStub"
+    help
+      This is just a stub for adding new repos
+
+endchoice
+
+choice
+    depends on RfidResearchGroup
 	prompt ""
 	default PM3RDV4
 
@@ -46,6 +63,7 @@ config BTADDON
         - Tempered glass cover
 
 choice
+    depends on RfidResearchGroup
     prompt ""
     default HF_YOUNG
 
