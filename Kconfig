@@ -15,14 +15,14 @@ mainmenu "MYAPP Configuration"
 
 choice
     prompt ""
-    default RfidResearchGroup
+    default REPO__RfidResearchGroup
 
-config RfidResearchGroup
+config REPO__RfidResearchGroup
     bool "Rfid Research Group"
     help
       Official Repository
 
-config TestRepo
+config REPO__TestRepo
     bool "TestRepoStub"
     help
       This is just a stub for adding new repos
@@ -30,24 +30,24 @@ config TestRepo
 endchoice
 
 choice
-    depends on RfidResearchGroup
+    depends on REPO__RfidResearchGroup
 	prompt ""
-	default PM3RDV4
+	default PLATFORM__PM3RDV4
 
-config PM3RDV4
+config PLATFORM__PM3RDV4
 	bool "Proxmark3 RDV4"
 	help
 	  This is the latest platform.
 
-config PM3OTHER
+config PLATFORM__PM3OTHER
 	bool "Proxmark3 all other platforms"
 	help
 	  This is for all other Proxmark3 platforms
 endchoice
 
-config BTADDON
+config PLATFORM_EXTRAS__BTADDON
 	bool "BlueShark addon"
-    depends on PM3RDV4
+    depends on PLATFORM__PM3RDV4
 	help
         BlueShark is bringing the following functionality to your existing Proxmark 3:
 
@@ -63,18 +63,18 @@ config BTADDON
         - Tempered glass cover
 
 choice
-    depends on RfidResearchGroup
+    depends on REPO__RfidResearchGroup
     prompt ""
-    default HF_YOUNG
+    default STANDALONE__HF_YOUNG
 
-config LF_SAMYRUN
+config STANDALONE__LF_SAMYRUN
     bool "LF_SAMYRUN - HID26 read/clone/sim"
     help
         READ/SIM of LF HID26 tags.
 
         Author: Samy Kamkar
 
-config LF_ICERUN
+config STANDALONE__LF_ICERUN
     bool "LF_ICERUN - standalone mode skeleton"
     help
         - Long press button until Several LED flash in sequence
@@ -88,7 +88,7 @@ config LF_ICERUN
 
         Author: Iceman
 
-config LF_PROXBRUTE
+config STANDALONE__LF_PROXBRUTE
     bool "LF_PROXBRUTE - HID ProxII bruteforce"
     help
         - Hold button until lights flash and release.
@@ -102,7 +102,7 @@ config LF_PROXBRUTE
 
         Author: Brad Antoniewicz
 
-config LF_HIDBRUTE
+config STANDALONE__LF_HIDBRUTE
     bool "LF_HIDBRUTE - HID corporate 1000 bruteforce"
     help
         - Hold button until lights flash and release.
@@ -116,12 +116,12 @@ config LF_HIDBRUTE
 
         Author: Federico dotta & Maurizio Agazzini
 
-config HF_YOUNG
+config STANDALONE__HF_YOUNG
     bool "HF_YOUNG - Mifare sniff/simulation"
     help
         Author: Craig Young
 
-config HF_MATTYRUN
+config STANDALONE__HF_MATTYRUN
     bool "HF_MATTYRUN - Mifare sniff/clone"
     help
         - Hold card up to antenna.
@@ -136,14 +136,14 @@ config HF_MATTYRUN
 
         Author: Matias A. Re Medina
 
-config HF_COLIN
-    depends on PM3RDV4
+config STANDALONE__HF_COLIN
+    depends on PLATFORM__PM3RDV4
     bool "HF_COLIN - Mifare ultra fast sniff/sim/clone"
     help
         Author: Colin Brigato
 
-config HF_BOG
-    depends on PM3RDV4
+config STANDALONE__HF_BOG
+    depends on PLATFORM__PM3RDV4
     bool "HF_BOG - 14a sniff with ULC/ULEV1/NTAG auth storing in flashmem"
     help
         Author: Bogito

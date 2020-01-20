@@ -21,23 +21,15 @@ if [ ! -f .config ] ; then
     make menuconfig
 fi
 
-export $( cat .config | egrep "^CONFIG" | xargs )
-
-
-[ "$CONFIG_PM3RDV4" = "y" ] && PLATFORM=PM3RDV4
-[ "$CONFIG_PM3OTHER" = "y" ] && PLATFORM=PM3OTHER
-
-[ "$CONFIG_BTADDON" = "y" ] && PLATFORM_EXTRAS=BTADDON
-
-[ "$CONFIG_LF_SAMYRUN" = "y" ] && STANDALONE=LF_SAMYRUN
-[ "$CONFIG_LF_ICERUN" = "y" ] && STANDALONE=LF_ICERUN
-[ "$CONFIG_LF_PROXBRUTE" = "y" ] && STANDALONE=LF_PROXBRUTE
-[ "$CONFIG_LF_HIDBRUTE" = "y" ] && STANDALONE=LF_HIDBRUTE
-[ "$CONFIG_HF_YOUNG" = "y" ] && STANDALONE=HF_YOUNG
-[ "$CONFIG_HF_MATTYRUN" = "y" ] && STANDALONE=HF_MATTYRUN
-[ "$CONFIG_HF_COLIN" = "y" ] && STANDALONE=HF_COLIN
-[ "$CONFIG_HF_BOG" = "y" ] && STANDALONE=HF_BOG
-
+eval `cat .config | egrep -v "^#|^$" |  sed 's/CONFIG_//g' | awk '{
+    if( index($0,"__") ) {
+        gsub("__","=",$0)
+        gsub("=y$","",$0)
+        print $0
+    } else {
+        print $0
+    }
+}'`
 
 
 #PLATFORM=PM3RDV4
@@ -63,7 +55,7 @@ tRESET()
 # Install prereqs
 #--------------------------------------------------
 
-if [ "${CONFIG_GETDEPENDENCIES}" = "y" ] ; then
+if [ "${GETDEPENDENCIES}" = "y" ] ; then
 tBOLD
 cat <<_EOM_
 ==================================================
@@ -111,7 +103,7 @@ tRESET
 #--------------------------------------------------
 
 if [ ! -d "proxmark3" ] ; then
-    if [ "${CONFIG_GITDOWNLOAD}" = "y" ] ; then
+    if [ "${GITDOWNLOAD}" = "y" ] ; then
         git clone https://github.com/RfidResearchGroup/proxmark3.git proxmark3
     fi
 fi
@@ -126,7 +118,7 @@ cd proxmark3
 #--------------------------------------------------
 # Check if remote GIT update available
 #--------------------------------------------------
-if [ "${CONFIG_GITDOWNLOAD}" = "y" ] ; then
+if [ "${GITDOWNLOAD}" = "y" ] ; then
     git fetch -v --dry-run 2>&1 | grep master | grep "up to date" >/dev/null 2>&1
 if [ $? -eq 1 ] ; then
     echo -n "Git update available... should I download? [Y|n]: "
@@ -144,7 +136,7 @@ fi
 fi
 
 #======================================================================
-if [ "${CONFIG_BUILDCLEAN}" = "y" ] ; then
+if [ "${BUILDCLEAN}" = "y" ] ; then
 tBOLD
 cat <<_EOM_
 
@@ -153,11 +145,11 @@ cat <<_EOM_
 --------------------------------------------------
 _EOM_
 tRESET
-make clean PLATFORM=${PLATFORM} STANDALONE=${STANDALONE}
+make clean
 fi
 
 #======================================================================
-if [ "${CONFIG_BUILD}" = "y" ] ; then
+if [ "${BUILD}" = "y" ] ; then
 tBOLD
 cat <<_EOM_
 
@@ -166,11 +158,11 @@ cat <<_EOM_
 --------------------------------------------------
 _EOM_
 tRESET
-make -j${CONFIG_THREADS} all PLATFORM=${PLATFORM} STANDALONE=${STANDALONE}
+make -j${THREADS} all PLATFORM=${PLATFORM} STANDALONE=${STANDALONE} PLATFORM_EXTRAS=${PLATFORM_EXTRAS}
 fi
 
 #======================================================================
-if [ "${CONFIG_INSTALL}" = "y" ] ; then
+if [ "${INSTALL}" = "y" ] ; then
 tBOLD
 cat <<_EOM_
 
