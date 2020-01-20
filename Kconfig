@@ -14,7 +14,7 @@ mainmenu "MYAPP Configuration"
 #menu "Compile-time checks and compiler options"
 
 choice
-    prompt ""
+    prompt "Repository"
     default REPO__RfidResearchGroup
 
 config REPO__RfidResearchGroup
@@ -29,9 +29,10 @@ config REPO__TestRepo
 
 endchoice
 
+#------------------------------
 choice
     depends on REPO__RfidResearchGroup
-	prompt ""
+	prompt "Platform"
 	default PLATFORM__PM3RDV4
 
 config PLATFORM__PM3RDV4
@@ -45,6 +46,7 @@ config PLATFORM__PM3OTHER
 	  This is for all other Proxmark3 platforms
 endchoice
 
+#------------------------------
 config PLATFORM_EXTRAS__BTADDON
 	bool "BlueShark addon"
     depends on PLATFORM__PM3RDV4
@@ -62,6 +64,7 @@ config PLATFORM_EXTRAS__BTADDON
         - Aluminium case + heatsink
         - Tempered glass cover
 
+#------------------------------
 choice
     depends on REPO__RfidResearchGroup
     prompt ""
@@ -148,9 +151,9 @@ config STANDALONE__HF_BOG
     help
         Author: Bogito
 
-
 endchoice
 
+#------------------------------
 menu "Build environment"
 
     config THREADS
@@ -163,7 +166,7 @@ menu "Build environment"
             Range: 2 - 8
 
     config GETDEPENDENCIES
-        bool "Get Build dependencies?"
+        bool "Get Build dependencies"
         default n
         help
             Make sure all build dependencies are met:
@@ -184,7 +187,7 @@ menu "Build environment"
              - libpcsclite-dev pcscd
 
     config GITDOWNLOAD
-        bool "Download/update Proxmark3 repository?"
+        bool "Download/update Proxmark3 repository"
         help
             Download latest Proxmark3 code from repository.
 
@@ -197,9 +200,9 @@ menu "Build environment"
 
 
     choice
-        prompt "Build code?"
+        prompt "Build code"
         depends on BUILD
-        default y
+        default BUILDCLEAN
 
         config BUILDCLEAN
             bool "Make clean build"
