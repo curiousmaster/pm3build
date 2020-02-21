@@ -80,7 +80,7 @@ if [ -n "`dpkg -l modemmanager | egrep '^ii'`" ] ; then
 ==================================================
 _EOM_
     tRESET
-    sudo apt purge modemmanager >/dev/null 2>&1
+    sudo apt purge modemmanager #>/dev/null 2>&1
 fi
 fi
 
@@ -172,16 +172,32 @@ cat <<_EOM_
 _EOM_
 tRESET
 sudo make install PLATFORM=${PLATFORM} STANDALONE=${STANDALONE}
+sudo cp ${FWDIR}/${BOOTROM}.elf ${FWDIR}/${BOOTROM}_${PLATFORM}_${STANDALONE}.elf
+sudo cp ${FWDIR}/${FULLIMG}.elf ${FWDIR}/${FULLIMG}_${PLATFORM}_${STANDALONE}.elf
+fi
 
 #======================================================================
+if [ "${FLASHBOOT}" = "y" ] ; then
 tBOLD
 cat <<_EOM_
 
 ==================================================
-               Installing image
+               Flashing boot image
 --------------------------------------------------
 _EOM_
 tRESET
-sudo cp ${FWDIR}/${BOOTROM}.elf ${FWDIR}/${BOOTROM}_${PLATFORM}_${STANDALONE}.elf
-sudo cp ${FWDIR}/${FULLIMG}.elf ${FWDIR}/${FULLIMG}_${PLATFORM}_${STANDALONE}.elf
+pm3 --flash --unlock-bootloader --image ${FWDIR}/${BOOTROM}.elf
+fi
+
+#======================================================================
+if [ "${FLASHFULL}" = "y" ] ; then
+tBOLD
+cat <<_EOM_
+
+==================================================
+               Flashing full image
+--------------------------------------------------
+_EOM_
+tRESET
+pm3 --flash --unlock-bootloader --image ${FWDIR}/${FULLIMG}.elf
 fi

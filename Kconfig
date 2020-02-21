@@ -216,6 +216,14 @@ menu "Build environment"
         bool "Install image"
         default "y"
 
+    config FLASHBOOT
+        bool "Flash Boot Image"
+        default "y"
+
+    config FLASHFULL
+        bool "Flash Full Image"
+        default "y"
+
 endmenu
 
 
