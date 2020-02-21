@@ -217,11 +217,17 @@ menu "Build environment"
         default "y"
 
     config FLASHBOOT
+        depends on INSTALL
         bool "Flash Boot Image"
         default "y"
 
     config FLASHFULL
+        depends on INSTALL
         bool "Flash Full Image"
+        default "y"
+
+    config CHECKVERSION
+        bool "Check Proxmark3 installation"
         default "y"
 
 endmenu

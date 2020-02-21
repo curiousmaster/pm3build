@@ -50,6 +50,10 @@ tRESET()
 {
     echo "\e[0m"
 }
+tGREEN()
+{
+    echo "\e[42m"
+}
 
 #--------------------------------------------------
 # Install prereqs
@@ -200,4 +204,17 @@ cat <<_EOM_
 _EOM_
 tRESET
 pm3 --flash --unlock-bootloader --image ${FWDIR}/${FULLIMG}.elf
+fi
+
+#======================================================================
+if [ "${CHECKVERSION}" = "y" ] ; then
+tGREEN
+cat <<_EOM_
+
+==================================================
+               Proxmark3 version
+--------------------------------------------------
+_EOM_
+tRESET
+pm3 -c "hw version"
 fi
