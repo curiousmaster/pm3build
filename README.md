@@ -18,6 +18,9 @@ I wanted a quick way to build the latest Proxmark3 code on any new Linux system 
 * Do a clean build
 * Use 8 threads when building code
 * Install build when done
+* Flash boot image
+* Flash full image
+* Check flashed version
 
 ## Howto
 ### First time
