@@ -32,6 +32,7 @@ eval `cat .config | egrep -v "^#|^$" |  sed 's/CONFIG_//g' | awk '{
 }'`
 
 
+
 #PLATFORM=PM3RDV4
 #STANDALONE=HF_YOUNG
 
@@ -54,6 +55,55 @@ tGREEN()
 {
     echo "\e[42m"
 }
+
+
+#--------------------------------------------------
+# HEADER
+#--------------------------------------------------
+tBOLD
+cat <<_EOM_
+==================================================
+                PROXMARK3 BUILDER                 
+==================================================
+_EOM_
+tRESET
+
+#--------------------------------------------------
+# Continue?
+#--------------------------------------------------
+cat .config | egrep -v "^#|^$" |  sed 's/CONFIG_//g' | awk '{
+    if( index($0,"__") ) {
+        gsub("__","=",$0)
+        gsub("=y$","",$0)
+        split($0,conf,"=")
+        ntab = 16 - length(conf[1])
+        tab = ""
+        for( i=0 ; i<ntab ; i++) tab = tab " "
+        printf("%s%s%s\n",conf[1],tab,conf[2])
+    } else {
+        split($0,conf,"=")
+        ntab = 16 - length(conf[1])
+        tab = ""
+        for( i=0 ; i<ntab ; i++) tab = tab " "
+        printf("%s%s%s\n",conf[1],tab,conf[2])
+    }
+}'
+
+echo
+echo -n "Continue [Y|n]: "
+read _ANSWER_
+case "$_ANSWER_" in
+    y* | Y*)
+        continue
+        ;;
+    n* | N*)
+        echo "ok... exiting!"
+        exit 0
+        ;;
+    *)
+        continue
+        ;;
+esac
 
 #--------------------------------------------------
 # Install prereqs
