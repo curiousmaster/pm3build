@@ -21,8 +21,10 @@ if [ ! -f .config ] ; then
     make menuconfig
 fi
 
-eval `cat .config | egrep -v "^#|^$" |  sed 's/CONFIG_//g' | awk '{
+eval `cat .config | egrep -v "^#|^$" | awk '{
     if( index($0,"__") ) {
+        print $0
+        gsub("CONFIG_","",$0)
         gsub("__","=",$0)
         gsub("=y$","",$0)
         print $0
@@ -30,8 +32,6 @@ eval `cat .config | egrep -v "^#|^$" |  sed 's/CONFIG_//g' | awk '{
         print $0
     }
 }'`
-
-
 
 #PLATFORM=PM3RDV4
 #STANDALONE=HF_YOUNG
@@ -71,7 +71,8 @@ tRESET
 #--------------------------------------------------
 # Continue?
 #--------------------------------------------------
-cat .config | egrep -v "^#|^$" |  sed 's/CONFIG_//g' | awk '{
+#cat .config | egrep -v "^#|^$" |  sed 's/CONFIG_//g' | awk '{
+set | grep "CONFIG_" | sed 's/CONFIG_//' | sed "s/'//g" | awk '{
     if( index($0,"__") ) {
         gsub("__","=",$0)
         gsub("=y$","",$0)
