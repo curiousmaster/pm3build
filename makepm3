@@ -21,7 +21,7 @@ if [ ! -f .config ] ; then
     make menuconfig
 fi
 
-eval `cat .config | egrep -v "^#|^$" | awk '{
+CONFIG=`cat .config | egrep -v "^#|^$" | awk '{
     if( index($0,"__") ) {
         print $0
         gsub("CONFIG_","",$0)
@@ -30,8 +30,14 @@ eval `cat .config | egrep -v "^#|^$" | awk '{
         print $0
     } else {
         print $0
+        gsub("CONFIG_","",$0)
+        print $0
     }
 }'`
+
+for c in $CONFIG ; do
+    eval $c
+done
 
 #PLATFORM=PM3RDV4
 #STANDALONE=HF_YOUNG
@@ -71,24 +77,26 @@ tRESET
 #--------------------------------------------------
 # Continue?
 #--------------------------------------------------
-#cat .config | egrep -v "^#|^$" |  sed 's/CONFIG_//g' | awk '{
-set | grep "CONFIG_" | sed 's/CONFIG_//' | sed "s/'//g" | awk '{
-    if( index($0,"__") ) {
-        gsub("__","=",$0)
-        gsub("=y$","",$0)
-        split($0,conf,"=")
-        ntab = 16 - length(conf[1])
-        tab = ""
-        for( i=0 ; i<ntab ; i++) tab = tab " "
-        printf("%s%s%s\n",conf[1],tab,conf[2])
-    } else {
-        split($0,conf,"=")
-        ntab = 16 - length(conf[1])
-        tab = ""
-        for( i=0 ; i<ntab ; i++) tab = tab " "
-        printf("%s%s%s\n",conf[1],tab,conf[2])
-    }
-}'
+for c in $CONFIG ; do
+    echo $c | sed "s/'//g" | awk ' /CONFIG_/ {
+        gsub("CONFIG_","",$0)
+        if( index($0,"__") ) {
+            gsub("__","=",$0)
+            gsub("=y$","",$0)
+            split($0,conf,"=")
+            ntab = 16 - length(conf[1])
+            tab = ""
+            for( i=0 ; i<ntab ; i++) tab = tab " "
+            printf("%s%s%s\n",conf[1],tab,conf[2])
+        } else {
+            split($0,conf,"=")
+            ntab = 16 - length(conf[1])
+            tab = ""
+            for( i=0 ; i<ntab ; i++) tab = tab " "
+            printf("%s%s%s\n",conf[1],tab,conf[2])
+        }
+    }'
+done
 
 echo
 echo -n "Continue [Y|n]: "
@@ -158,7 +166,9 @@ tRESET
 #--------------------------------------------------
 
 if [ ! -d "proxmark3" ] ; then
+    echo "no proxmark3"
     if [ "${GITDOWNLOAD}" = "y" ] ; then
+        echo "cloning"
         git clone https://github.com/RfidResearchGroup/proxmark3.git proxmark3
     fi
 fi
