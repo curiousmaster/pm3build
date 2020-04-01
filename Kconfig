@@ -71,14 +71,14 @@ choice
     default STANDALONE__HF_YOUNG
 
 config STANDALONE__LF_SAMYRUN
-    bool "LF_SAMYRUN - HID26 read/clone/sim"
+    bool "LF_SAMYRUN    - HID26 read/clone/sim"
     help
         READ/SIM of LF HID26 tags.
 
         Author: Samy Kamkar
 
 config STANDALONE__LF_ICERUN
-    bool "LF_ICERUN - standalone mode skeleton"
+    bool "LF_ICERUN     - standalone mode skeleton"
     help
         - Long press button until Several LED flash in sequence
         - LED C is now lit
@@ -92,7 +92,7 @@ config STANDALONE__LF_ICERUN
         Author: Iceman
 
 config STANDALONE__LF_PROXBRUTE
-    bool "LF_PROXBRUTE - HID ProxII bruteforce"
+    bool "LF_PROXBRUTE  - HID ProxII bruteforce"
     help
         - Hold button until lights flash and release.
         - C stays lit.
@@ -106,7 +106,7 @@ config STANDALONE__LF_PROXBRUTE
         Author: Brad Antoniewicz
 
 config STANDALONE__LF_HIDBRUTE
-    bool "LF_HIDBRUTE - HID corporate 1000 bruteforce"
+    bool "LF_HIDBRUTE   - HID corporate 1000 bruteforce"
     help
         - Hold button until lights flash and release.
         - C stays lit.
@@ -120,12 +120,12 @@ config STANDALONE__LF_HIDBRUTE
         Author: Federico dotta & Maurizio Agazzini
 
 config STANDALONE__HF_YOUNG
-    bool "HF_YOUNG - Mifare sniff/simulation"
+    bool "HF_YOUNG      - Mifare sniff/simulation"
     help
         Author: Craig Young
 
 config STANDALONE__HF_MATTYRUN
-    bool "HF_MATTYRUN - Mifare sniff/clone"
+    bool "HF_MATTYRUN   - Mifare sniff/clone"
     help
         - Hold card up to antenna.
         - Long press button.
@@ -141,15 +141,41 @@ config STANDALONE__HF_MATTYRUN
 
 config STANDALONE__HF_COLIN
     depends on PLATFORM__PM3RDV4
-    bool "HF_COLIN - Mifare ultra fast sniff/sim/clone"
+    bool "HF_COLIN      - Mifare ultra fast sniff/sim/clone"
     help
         Author: Colin Brigato
 
 config STANDALONE__HF_BOG
     depends on PLATFORM__PM3RDV4
-    bool "HF_BOG - 14a sniff with ULC/ULEV1/NTAG auth storing in flashmem"
+    bool "HF_BOG        - 14a sniff with ULC/ULEV1/NTAG auth storing in flashmem"
     help
         Author: Bogito
+
+config STANDALONE__HF_14ASNIFF
+    depends on PLATFORM__PM3RDV4
+    bool "HF_14ASNIFF   - 14a sniff to flashmem"
+    help
+        Author: Unknown
+
+config STANDALONE__LF_ICEHID
+    bool "LF_ICEHID     - LF HID collector to flashmem"
+    help
+        Author: Unknown
+
+config STANDALONE__LF_ICEHID
+    bool "LF_EM4100EMUL - Simulate predefined em4100 tags only"
+    help
+        Author: Unknown
+
+config STANDALONE__LF_ICEHID
+    bool "LF_EM4100RWC  - Read/Simulate em4100 tags & clone it"
+    help
+        Author: Unknown
+
+config STANDALONE__HF_LEGIC
+    bool "HF_LEGIC      - Read/Simulate Legic Prime tags storing in flashmem"
+    help
+        Author: Unknown
 
 endchoice
 
