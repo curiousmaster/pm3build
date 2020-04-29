@@ -246,8 +246,6 @@ menu "Build environment"
         config BUILDCODE
             bool "Just Make"
 
-nisse SKIPQT=1
-
     endchoice
 
     config INSTALL
