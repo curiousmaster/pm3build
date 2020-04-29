@@ -42,6 +42,10 @@ done
 #PLATFORM=PM3RDV4
 #STANDALONE=HF_YOUNG
 
+if [ -z "$STANDALONE" ] ; then
+    unset STANDALONE
+fi
+
 #------------------------------
 # System vars
 #------------------------------
