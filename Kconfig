@@ -124,6 +124,21 @@ config STANDALONE__LF_HIDBRUTE
 
         Author: Federico dotta & Maurizio Agazzini
 
+config STANDALONE__LF_ICEHID
+    bool "LF_ICEHID     : LF HID collector to flashmem"
+    help
+        Author: Unknown
+
+config STANDALONE__LF_ICEHID
+    bool "LF_EM4100EMUL : Simulate predefined em4100 tags only"
+    help
+        Author: Unknown
+
+config STANDALONE__LF_ICEHID
+    bool "LF_EM4100RWC  : Read/Simulate em4100 tags & clone it"
+    help
+        Author: Unknown
+
 config STANDALONE__HF_YOUNG
     bool "HF_YOUNG      : Mifare sniff/simulation"
     help
@@ -159,21 +174,6 @@ config STANDALONE__HF_BOG
 config STANDALONE__HF_14ASNIFF
     depends on PLATFORM__PM3RDV4
     bool "HF_14ASNIFF   : 14a sniff to flashmem"
-    help
-        Author: Unknown
-
-config STANDALONE__LF_ICEHID
-    bool "LF_ICEHID     : LF HID collector to flashmem"
-    help
-        Author: Unknown
-
-config STANDALONE__LF_ICEHID
-    bool "LF_EM4100EMUL : Simulate predefined em4100 tags only"
-    help
-        Author: Unknown
-
-config STANDALONE__LF_ICEHID
-    bool "LF_EM4100RWC  : Read/Simulate em4100 tags & clone it"
     help
         Author: Unknown
 
