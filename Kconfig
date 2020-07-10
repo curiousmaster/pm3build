@@ -129,13 +129,18 @@ config STANDALONE__LF_ICEHID
     help
         Author: Unknown
 
-config STANDALONE__LF_ICEHID
+config STANDALONE__LF_EM4100EMUL
     bool "LF_EM4100EMUL : Simulate predefined em4100 tags only"
     help
         Author: Unknown
 
-config STANDALONE__LF_ICEHID
-    bool "LF_EM4100RWC  : Read/Simulate em4100 tags & clone it"
+config STANDALONE__LF_EM4100RSWB
+    bool "LF_EM4100RSWB  : Read/Simulate/Brute em4100 tags & clone it to T555x tags"
+    help
+        Author: Unknown
+
+config STANDALONE__LF_EM4100RWC
+    bool "LF_EM4100RWC  : Read/Simulate em4100 tags & clone it to T555x tags"
     help
         Author: Unknown
 
