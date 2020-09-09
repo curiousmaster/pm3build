@@ -125,6 +125,7 @@ config STANDALONE__LF_HIDBRUTE
         Author: Federico dotta & Maurizio Agazzini
 
 config STANDALONE__LF_ICEHID
+    depends on PLATFORM__PM3RDV4
     bool "LF_ICEHID     : LF HID collector to flashmem"
     help
         Author: Unknown
@@ -191,6 +192,17 @@ config STANDALONE__HF_MSDSAL
     bool "HF_MSDSAL     : Read and emulate MSD Visa cards"
     help
         Author: Salvador Mendoza
+
+config STANDALONE__HF_AVEFUL
+    bool "HF_AVEFUL     : Mifare ultralight read/simulation"
+    help
+        Author: Ave Ozkal
+
+config STANDALONE__HF_ICECLASS
+    depends on PLATFORM__PM3RDV4
+    bool "HF_ICECLASS     : Simulate HID iCLASS legacy ags stored in flashmem"
+    help
+        Author: Ave Ozkal
 
 endchoice
 
