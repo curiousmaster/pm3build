@@ -95,7 +95,7 @@ config STANDALONE__LF_EM4100EMUL
         Author: Unknown
 
 config STANDALONE__LF_EM4100RSWB
-    bool "LF_EM4100RSWB  : Read/Simulate/Brute em4100 tags & clone it to T555x tags"
+    bool "LF_EM4100RSWB : Read/Simulate/Brute em4100 tags & clone it to T555x tags"
     help
         Author: Unknown
 
@@ -170,7 +170,7 @@ config STANDALONE__HF_COLIN
 
 config STANDALONE__HF_ICECLASS
     depends on PLATFORM__PM3RDV4
-    bool "HF_ICECLASS     : Simulate HID iCLASS legacy ags stored in flashmem"
+    bool "HF_ICECLASS   : Simulate HID iCLASS legacy ags stored in flashmem"
     help
         Author: Ave Ozkal
 
@@ -199,6 +199,10 @@ config STANDALONE__HF_MSDSAL
     help
         Author: Salvador Mendoza
 
+config STANDALONE__HF_TCPRST
+    bool "HF_TCPRST     : IKEA Rothult read/sim/dump/emul"
+    help
+        Author: Nco Draffen
 
 config STANDALONE__HF_YOUNG
     bool "HF_YOUNG      : Mifare sniff/simulation"
