@@ -32,3 +32,5 @@ If you just run the following command it will download and build Proxmark3 accor
 Just run the following command to set new build defaults. It is possible to save/load your configuration to/from a different file.
 
     make menuconfig
+
+### Caveats
