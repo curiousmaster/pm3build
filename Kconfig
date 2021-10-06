@@ -44,6 +44,12 @@ config PLATFORM__PM3OTHER
 	bool "Proxmark3 all other platforms"
 	help
 	  This is for all other Proxmark3 platforms
+
+config PLATFORM__PM3ICOPYX
+	bool "iCopy-X with XC3S100E"
+	help
+	  This is the new iCopy-X device
+
 endchoice
 
 #------------------------------
@@ -118,7 +124,19 @@ config STANDALONE__LF_HIDBRUTE
 
         Author: Federico dotta & Maurizio Agazzini
 
+config STANDALONE__LF_HIDFCBRUTE
+    depends on PLATFORM__PM3RDV4
+    bool "LF_HIDRCBRUTE : HID Facility Code Bruteforce - (RDV4 only)"
+    help
+	Author: Unknown
+
 config STANDALONE__LF_ICEHID
+    depends on PLATFORM__PM3RDV4
+    bool "LF_ICEHID     : LF HID collector to flashmem"
+    help
+        Author: Unknown
+
+config STANDALONE__LF_NEXID
     depends on PLATFORM__PM3RDV4
     bool "LF_ICEHID     : LF HID collector to flashmem"
     help
@@ -145,6 +163,12 @@ config STANDALONE__LF_SAMYRUN
 
         Author: Samy Kamkar
 
+config STANDALONE__HF_THAREXDE
+    depends on PLATFORM__PM3RDV4
+    bool "HF_THAREXDE   : Simulate/read EM4x50 tags storing in flashmem"
+    help
+	Author: Unknown
+
 config STANDALONE__HF_14ASNIFF
     depends on PLATFORM__PM3RDV4
     bool "HF_14ASNIFF   : 14a sniff to flashmem"
@@ -161,6 +185,12 @@ config STANDALONE__HF_BOG
     bool "HF_BOG        : 14a sniff with ULC/ULEV1/NTAG auth storing in flashmem"
     help
         Author: Bogito
+
+config STANDALONE__HF_CRAFTBYTE
+    depends on PLATFORM__PM3RDV4
+    bool "HF_CRAFTBYTE  : UID stealer - Emulates scanned 14a UID"
+    help
+        Author: Anze Jensterle
 
 config STANDALONE__HF_COLIN
     depends on PLATFORM__PM3RDV4
@@ -194,15 +224,33 @@ config STANDALONE__HF_MATTYRUN
 
         Author: Matias A. Re Medina
 
+config STANDALONE__HF_MFCSIM
+    depends on PLATFORM__PM3RDV4
+    bool "HF_MFCSIM     : Simulate Mifare Classic 1k card storing in flashmem
+    help
+        Author: Ray Lee
+
 config STANDALONE__HF_MSDSAL
     bool "HF_MSDSAL     : Read and emulate MSD Visa cards"
     help
         Author: Salvador Mendoza
 
+config STANDALONE__HF_REBLAY
+    depends on PLATFORM__PM3RDV4
+    bool "HF_REBLAY     : 14A Relay over BT
+    help
+        Author: Salvador Medoza
+
 config STANDALONE__HF_TCPRST
     bool "HF_TCPRST     : IKEA Rothult read/sim/dump/emul"
     help
         Author: Nco Draffen
+
+config STANDALONE__HF_TMUDFORD
+    depends on PLATFORM__PM3RDV4
+    bool "HF_TMUDFORD   : Read and emulate 15 tags
+    help
+        Author: Tim Mudford
 
 config STANDALONE__HF_YOUNG
     bool "HF_YOUNG      : Mifare sniff/simulation"
