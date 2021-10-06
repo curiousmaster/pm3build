@@ -226,7 +226,7 @@ config STANDALONE__HF_MATTYRUN
 
 config STANDALONE__HF_MFCSIM
     depends on PLATFORM__PM3RDV4
-    bool "HF_MFCSIM     : Simulate Mifare Classic 1k card storing in flashmem
+    bool "HF_MFCSIM     : Simulate Mifare Classic 1k card storing in flashmem"
     help
         Author: Ray Lee
 
@@ -237,7 +237,7 @@ config STANDALONE__HF_MSDSAL
 
 config STANDALONE__HF_REBLAY
     depends on PLATFORM__PM3RDV4
-    bool "HF_REBLAY     : 14A Relay over BT
+    bool "HF_REBLAY     : 14A Relay over BT"
     help
         Author: Salvador Medoza
 
@@ -248,7 +248,7 @@ config STANDALONE__HF_TCPRST
 
 config STANDALONE__HF_TMUDFORD
     depends on PLATFORM__PM3RDV4
-    bool "HF_TMUDFORD   : Read and emulate 15 tags
+    bool "HF_TMUDFORD   : Read and emulate 15 tags"
     help
         Author: Tim Mudford
 
