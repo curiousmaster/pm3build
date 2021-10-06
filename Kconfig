@@ -138,7 +138,7 @@ config STANDALONE__LF_ICEHID
 
 config STANDALONE__LF_NEXID
     depends on PLATFORM__PM3RDV4
-    bool "LF_ICEHID     : LF HID collector to flashmem"
+    bool "LF_NEXID     : LF Nexwatch collector to flashmem"
     help
         Author: Unknown
 
