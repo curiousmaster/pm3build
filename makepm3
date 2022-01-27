@@ -33,11 +33,28 @@ CONFIG=`cat .config | egrep -v "^#|^$" | awk '{
         gsub("CONFIG_","",$0)
         print $0
     }
+    if( index($0, "SKIP_") ) {
+	gsub("y", "1", $0)
+	print $0
+    }
 }'`
 
 for c in $CONFIG ; do
     eval $c
 done
+
+
+SKIP=`echo $CONFIG | awk '{
+	for( n=1 ; n<=NF ; n++ ) {
+		if( index($n,"SKIP_") ) {
+			if( ! (index($n,"CONFIG_") || index($n, "y")) ) {
+				printf("%s ",$n)
+			} 
+		}
+	}
+}'`
+
+
 
 #PLATFORM=PM3RDV4
 #STANDALONE=HF_YOUNG
@@ -227,7 +244,7 @@ cat <<_EOM_
 --------------------------------------------------
 _EOM_
 tRESET
-make -j${THREADS} all PLATFORM=${PLATFORM} STANDALONE=${STANDALONE} PLATFORM_EXTRAS=${PLATFORM_EXTRAS}
+make -j${THREADS} all PLATFORM=${PLATFORM} STANDALONE=${STANDALONE} PLATFORM_EXTRAS=${PLATFORM_EXTRAS} ${SKIP}
 fi
 
 #======================================================================

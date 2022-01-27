@@ -75,6 +75,7 @@ choice
     depends on REPO__RfidResearchGroup
     prompt ""
     default STANDALONE__MSDSAL
+#------------------------------
 
 config STANDALONE__
     bool "empty         : Disable standalone"
@@ -175,6 +176,12 @@ config STANDALONE__HF_14ASNIFF
     help
         Author: Unknown
 
+config STANDALONE__HF_15SNIFF
+    depends on PLATFORM__PM3RDV4
+    bool "HF_14ASNIFF   : 15693 sniff to flashmem"
+    help
+        Author: Unknown
+
 config STANDALONE__HF_AVEFUL
     bool "HF_AVEFUL     : Mifare ultralight read/simulation"
     help
@@ -186,17 +193,16 @@ config STANDALONE__HF_BOG
     help
         Author: Bogito
 
-config STANDALONE__HF_CRAFTBYTE
-    depends on PLATFORM__PM3RDV4
-    bool "HF_CRAFTBYTE  : UID stealer - Emulates scanned 14a UID"
-    help
-        Author: Anze Jensterle
-
 config STANDALONE__HF_COLIN
     depends on PLATFORM__PM3RDV4
     bool "HF_COLIN      : Mifare ultra fast sniff/sim/clone"
     help
         Author: Colin Brigato
+
+config STANDALONE__HF_CRAFTBYTE
+    bool "HF_CRAFTBYTE  : UID stealer - Emulates scanned 14a UID"
+    help
+        Author: Anze Jensterle
 
 config STANDALONE__HF_ICECLASS
     depends on PLATFORM__PM3RDV4
@@ -257,8 +263,56 @@ config STANDALONE__HF_YOUNG
     help
         Author: Craig Young
 
+config STANDALONE__DANKARMULTI
+    bool "DANKARMULTI   : Load multiple standalone modes"
+    help
+        Author: Daniel Karling
 
 endchoice
+
+    menu "Disable features"
+
+        config SKIP_LF
+            bool "Skip LF"
+
+        config SKIP_HITAG
+	    bool "Skip HITAG"
+
+	config SKIP_EM4x50
+	    bool "Skip EM4x50"
+
+	config SKIP_ISO15693
+	    bool "Skip ISO15693"
+
+	config SKIP_LEGICRF
+	    bool "Skip LEGICRF"
+
+	config SKIP_ISO14443b
+	    bool "Skip ISO14443b"
+
+	config SKIP_ISO14443a
+	    bool "Skip ISO14443a"
+	    
+	config SKIP_ICLASS
+	    bool "Skip ICLASS"
+
+	config SKIP_FELICA
+	    bool "Skip FELICA"
+
+	config SKIP_NFCBARCODE
+	    bool "Skip NFCBARCODE"
+
+	config SKIP_HFSNIFF
+	    bool "Skip HFSNIFF"
+
+	config SKIP_HFPLOT
+	    bool "SKIP_HFPLOT"
+
+	config SKIP_ZX8211
+	    bool "Skip ZX8211"
+
+    
+       endmenu
 
 #------------------------------
 menu "Build environment"
@@ -300,6 +354,7 @@ menu "Build environment"
 
             Repository: https://github.com/RfidResearchGroup/proxmark3.git
         default y
+
 
     config BUILD
         bool "Build code"
