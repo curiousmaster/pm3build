@@ -106,11 +106,6 @@ config STANDALONE__LF_EM4100RSWB
     help
         Author: Unknown
 
-config STANDALONE__LF_EM4100RSWW
-    bool "LF_EM4100RSWW  : Read/Simulate/Validate em4100 tags & clone it to T555x tags, wipe T55xx tags"
-    help
-        Author: Unknown
-
 config STANDALONE__LF_EM4100RWC
     bool "LF_EM4100RWC  : Read/Simulate em4100 tags & clone it to T555x tags"
     help
@@ -177,19 +172,7 @@ config STANDALONE__HF_THAREXDE
 
 config STANDALONE__HF_14ASNIFF
     depends on PLATFORM__PM3RDV4
-    bool "HF_14ASNIFF   : 14a sniff to flashmem or RAM"
-    help
-        Author: Unknown
-
-config STANDALONE__HF_14BSNIFF
-    depends on PLATFORM__PM3RDV4
-    bool "HF_14BSNIFF   : 14b sniff to flashmem or RAM"
-    help
-        Author: Unknown
-
-config STANDALONE__HF_15SNIFF
-    depends on PLATFORM__PM3RDV4
-    bool "HF_15SNIFF   : 15693 sniff to flashmem or RAM"
+    bool "HF_14ASNIFF   : 14a sniff to flashmem"
     help
         Author: Unknown
 
@@ -217,10 +200,6 @@ config STANDALONE__HF_COLIN
         Author: Colin Brigato
 
 config STANDALONE__HF_CRAFTBYTE
-<<<<<<< HEAD
-    depends on PLATFORM__PM3RDV4
-=======
->>>>>>> 793b1823f869fa305ce999bc8954953d8275383f
     bool "HF_CRAFTBYTE  : UID stealer - Emulates scanned 14a UID"
     help
         Author: Anze Jensterle
@@ -233,12 +212,6 @@ config STANDALONE__HF_ICECLASS
 
 config STANDALONE__HF_LEGIC
     bool "HF_LEGIC      : Read/Simulate Legic Prime tags storing in flashmem"
-    help
-        Author: Unknown
-
-config STANDALONE__HF_LEGICSIM
-    depends on PLATFORM__PM3RDV4
-    bool "HF_LEGIC      : Simulate Legic Prime tags storing in flashmem"
     help
         Author: Unknown
 
@@ -291,16 +264,9 @@ config STANDALONE__HF_YOUNG
         Author: Craig Young
 
 config STANDALONE__DANKARMULTI
-<<<<<<< HEAD
-    bool "DANKARMULTI   : Load multiple standalone modes."
-    help
-        Author: Daniel Karling
-
-=======
     bool "DANKARMULTI   : Load multiple standalone modes"
     help
         Author: Daniel Karling
->>>>>>> 793b1823f869fa305ce999bc8954953d8275383f
 
 endchoice
 
