@@ -106,6 +106,11 @@ config STANDALONE__LF_EM4100RSWB
     help
         Author: Unknown
 
+config STANDALONE__LF_EM4100RSWW
+    bool "LF_EM4100RSWW : Read/Simulate/Brute em4100 tags & clone it to T555x tags, wipe T55xx tags"
+    help
+        Author: Unknown
+
 config STANDALONE__LF_EM4100RWC
     bool "LF_EM4100RWC  : Read/Simulate em4100 tags & clone it to T555x tags"
     help
@@ -171,8 +176,12 @@ config STANDALONE__HF_THAREXDE
 	Author: Unknown
 
 config STANDALONE__HF_14ASNIFF
-    depends on PLATFORM__PM3RDV4
-    bool "HF_14ASNIFF   : 14a sniff to flashmem"
+    bool "HF_14ASNIFF   : 14a sniff to flashmem (rdv4) or ram"
+    help
+        Author: Unknown
+
+config STANDALONE__HF_14BSNIFF
+    bool "HF_14BSNIFF   : 14b sniff to flashmem (rdv4) or ram"
     help
         Author: Unknown
 
@@ -212,6 +221,12 @@ config STANDALONE__HF_ICECLASS
 
 config STANDALONE__HF_LEGIC
     bool "HF_LEGIC      : Read/Simulate Legic Prime tags storing in flashmem"
+    help
+        Author: Unknown
+
+config STANDALONE__HF_LEGICSIM
+    depends on PLATFORM__PM3RDV4
+    bool "HF_LEGICSIM   : Read/Simulate Legic Prime tags storing in flashmem"
     help
         Author: Unknown
 
