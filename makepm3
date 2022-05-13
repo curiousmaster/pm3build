@@ -1,7 +1,7 @@
 #! /usr/bin/env sh
 #======================================================================
 # NAME
-#   makeit4 - Build Proxmark3 RDV4 images and binaries
+#   makepm3 - Build Proxmark3 RDV4 images and binaries
 #
 # DESCRIPTION
 #   This script will build the latest Proxmark3 RDV4
