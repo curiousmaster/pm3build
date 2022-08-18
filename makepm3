@@ -149,7 +149,8 @@ _EOM_
 tRESET
 (
 sudo apt update
-sudo apt install git build-essential libreadline8 libreadline-dev gcc-arm-none-eabi libusb-0.1-4 libusb-dev ncurses-dev perl pkg-config libpcsclite-dev pcscd libsndfile1-dev libarchive-dev libbz2-dev libssl-dev qt5-default
+sudo apt install git build-essential libreadline8 libreadline-dev gcc-arm-none-eabi libusb-0.1-4 libusb-dev ncurses-dev perl pkg-config libpcsclite-dev pcscd libsndfile1-dev libarchive-dev libbz2-dev libssl-dev
+sudo apt install qt5-default
 )
 echo "DONE"
 
