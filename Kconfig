@@ -141,10 +141,15 @@ config STANDALONE__LF_ICEHID
     bool "LF_ICEHID     : LF HID collector to flashmem"
     help
         Author: Unknown
+config STANDALONE__LF_NEDAPSIM
+    depends on PLATFORM__NEDAPSIM
+    bool "LF_NEDAPSIM   : LF Nedap ID simple simulator"
+    help
+        Author: Unknown
 
 config STANDALONE__LF_NEXID
     depends on PLATFORM__PM3RDV4
-    bool "LF_NEXID     : LF Nexwatch collector to flashmem"
+    bool "LF_NEXID      : LF Nexwatch collector to flashmem"
     help
         Author: Unknown
 
@@ -161,6 +166,12 @@ config STANDALONE__LF_PROXBRUTE
         - It is now brute forcing the key space starting with the scanned card and decrements the hex values until you find a new valid card
 
         Author: Brad Antoniewicz
+
+config STANDALONE__LF_PROX2BRUTE
+    bool "LF_PROX2BRUTE : HID ProxII bruteforce v2"
+    help
+        HID ProxII bruteforce v2
+        Author: Unknown
 
 config STANDALONE__LF_SAMYRUN
     bool "LF_SAMYRUN    : HID26 read/clone/sim"
