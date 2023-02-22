@@ -187,11 +187,24 @@ tRESET
 # Check if we have a Proxmark3 repo downloaded
 #--------------------------------------------------
 
+case ${REPO} in
+	"Iceman")
+		repository=https://github.com/RfidResearchGroup/proxmark3.git
+		;;
+	"TestRepo")
+		echo "This repo is just a stub... nothing to download."
+		exit 0
+		;;
+	*)
+		repository=https://github.com/RfidResearchGroup/proxmark3.git
+		;;
+esac
+
 if [ ! -d "proxmark3" ] ; then
     echo "no proxmark3"
     if [ "${GITDOWNLOAD}" = "y" ] ; then
         echo "cloning"
-        git clone https://github.com/RfidResearchGroup/proxmark3.git proxmark3
+        git clone ${repository} proxmark3
     fi
 fi
 

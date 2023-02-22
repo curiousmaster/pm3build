@@ -15,10 +15,10 @@ mainmenu "Proxmark3 Configuration"
 
 choice
     prompt "Repository"
-    default REPO__RfidResearchGroup
+    default REPO__Iceman
 
-config REPO__RfidResearchGroup
-    bool "Rfid Research Group"
+config REPO__Iceman
+    bool "Iceman fork"
     help
       Official Repository
 
